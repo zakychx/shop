@@ -41,3 +41,48 @@ function drawRain() {
 }
 
 drawRain();
+
+document.addEventListener("DOMContentLoaded", () => {
+  const aboutButton = document.querySelector("button:nth-child(1)");
+  const projectsButton = document.querySelector("button:nth-child(2)");
+  const priceButton = document.querySelector("button:nth-child(3)");
+
+  const aboutSection = document.querySelector(".About");
+  const projectsSection = document.querySelector(".projects");
+  const priceSection = document.querySelector(".price");
+
+  function hideAllSections() {
+    aboutSection.style.display = "none";
+    projectsSection.style.display = "none";
+    priceSection.style.display = "none";
+
+    aboutSection.classList.remove("animated");
+    projectsSection.classList.remove("animated");
+    priceSection.classList.remove("animated");
+  }
+
+  function toggleSection(section) {
+    if (section.style.display === "block" || section.style.display === "grid") {
+      section.style.display = "none";
+      section.classList.remove("animated");
+    } else {
+      hideAllSections();
+      section.style.display = section === projectsSection ? "grid" : "block";
+      section.classList.add("animated");
+    }
+  }
+
+  hideAllSections();
+
+  aboutButton.addEventListener("click", () => {
+    toggleSection(aboutSection);
+  });
+
+  projectsButton.addEventListener("click", () => {
+    toggleSection(projectsSection);
+  });
+
+  priceButton.addEventListener("click", () => {
+    toggleSection(priceSection);
+  });
+});
