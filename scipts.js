@@ -1,13 +1,13 @@
-const canvas = document.getElementById("canvas");
+// Анимация дождя
+const canvas = document.getElementById("rain-canvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-window.addEventListener("resize", () => {
+function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-});
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
 const drops = [];
 for (let i = 0; i < 500; i++) {
@@ -39,50 +39,40 @@ function drawRain() {
 
   requestAnimationFrame(drawRain);
 }
-
 drawRain();
 
+// Логика переключения вкладок
 document.addEventListener("DOMContentLoaded", () => {
-  const aboutButton = document.querySelector("button:nth-child(1)");
-  const projectsButton = document.querySelector("button:nth-child(2)");
-  const priceButton = document.querySelector("button:nth-child(3)");
+  const aboutBtn = document.querySelector(".btn-about");
+  const projectsBtn = document.querySelector(".btn-projects");
+  const pricingBtn = document.querySelector(".btn-pricing");
 
-  const aboutSection = document.querySelector(".About");
-  const projectsSection = document.querySelector(".projects");
-  const priceSection = document.querySelector(".price");
+  const aboutContent = document.querySelector(".about-content");
+  const projectsContent = document.querySelector(".projects-content");
+  const pricingContent = document.querySelector(".pricing-content");
 
-  function hideAllSections() {
-    aboutSection.style.display = "none";
-    projectsSection.style.display = "none";
-    priceSection.style.display = "none";
-
-    aboutSection.classList.remove("animated");
-    projectsSection.classList.remove("animated");
-    priceSection.classList.remove("animated");
+  function hideAll() {
+    aboutContent.classList.remove("active");
+    projectsContent.classList.remove("active");
+    pricingContent.classList.remove("active");
   }
 
-  function toggleSection(section) {
-    if (section.style.display === "block" || section.style.display === "grid") {
-      section.style.display = "none";
-      section.classList.remove("animated");
-    } else {
-      hideAllSections();
-      section.style.display = section === projectsSection ? "grid" : "block";
-      section.classList.add("animated");
-    }
-  }
-
-  hideAllSections();
-
-  aboutButton.addEventListener("click", () => {
-    toggleSection(aboutSection);
+  aboutBtn.addEventListener("click", () => {
+    hideAll();
+    aboutContent.classList.add("active");
   });
 
-  projectsButton.addEventListener("click", () => {
-    toggleSection(projectsSection);
+  projectsBtn.addEventListener("click", () => {
+    hideAll();
+    projectsContent.classList.add("active");
   });
 
-  priceButton.addEventListener("click", () => {
-    toggleSection(priceSection);
+  pricingBtn.addEventListener("click", () => {
+    hideAll();
+    pricingContent.classList.add("active");
   });
+
+  // По умолчанию показываем About
+  hideAll();
+  aboutContent.classList.add("active");
 });
